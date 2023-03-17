@@ -5,10 +5,14 @@ import {
   createMotorcycleInput,
   createMotorcycleOutput,
   getAllMotorcycleOutput,
+  motorcycleToUpdate,
 } from '../Mocks/MotorcycleMocks';
 import IMotorcycle from '../../../src/Interfaces/IMotorcycle';
 import Motorcycle from '../../../src/Domains/Motorcycle';
 import MotorcycleService from '../../../src/Services/MotorcycleService';
+
+const NOT_FOUND_ERROR = 'Motorcycle not found';
+const INVALID_ID_ERROR = 'Invalid mongo id';
 
 describe('MotorcycleService', function () {
   beforeEach(function () {
@@ -41,7 +45,7 @@ describe('MotorcycleService', function () {
       const motorcycleById = await motorcycleService.getAllByIdMotorcycle('invalid');
       expect(motorcycleById).to.be.deep.equal(
         {
-          message: 'Invalid mongo id',
+          message: INVALID_ID_ERROR,
           status: 422,
         },
       );
@@ -56,8 +60,23 @@ describe('MotorcycleService', function () {
       await service.getAllByIdMotorcycle(input);
     } catch (error) {
       expect((error as Error).message).to.be.equal(
-        { message: 'Motorcycle not found', status: 404 },
+        { message: NOT_FOUND_ERROR, status: 404 },
       );
+    }
+  });
+
+  it('Cannot update a motorcycle with invalid id format', async function () {
+    const invalidId = 'idInvalid';
+    const updateData: IMotorcycle = motorcycleToUpdate;
+
+    try {
+      const service = new MotorcycleService();
+      await service.updateByIdMotorcycle(invalidId, updateData);
+    } catch (error) {
+      expect((error as Error).message).to.be.equal({
+        message: INVALID_ID_ERROR,
+        status: 422,
+      });
     }
   });
 });

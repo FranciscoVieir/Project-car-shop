@@ -14,7 +14,7 @@ const createMotorcycleInput = {
 };
 
 const createMotorcycleOutput = {
-  _id: '6245511f24c457abcbd142b1',
+  id: '6245511f24c457abcbd142b1',
   model: HONDA_POP_MODEL,
   year: 2017,
   color: 'Red',
@@ -22,7 +22,6 @@ const createMotorcycleOutput = {
   buyValue: 16.000,
   category: 'Street' as MotorcycleCategoryTypes,
   engineCapacity: 100,
-  __v: 0,
 };
 
 const getAllMotorcycleOutput = [
@@ -34,7 +33,6 @@ const getAllMotorcycleOutput = [
     buyValue: 16.000,
     category: 'Street' as MotorcycleCategoryTypes,
     engineCapacity: 100,
-    __v: 0,
   },
   {
     id: '624463516b53b52468fcba52',
@@ -48,8 +46,19 @@ const getAllMotorcycleOutput = [
   },
 ];
 
+const motorcycleToUpdate = {
+  model: HONDA_POP_MODEL,
+  year: 2017,
+  color: 'Red',
+  status: true,
+  buyValue: 16.000,
+  category: 'Street' as MotorcycleCategoryTypes,
+  engineCapacity: 100,
+};
+
 export {
   createMotorcycleInput,
   createMotorcycleOutput,
   getAllMotorcycleOutput,
+  motorcycleToUpdate,
 };
